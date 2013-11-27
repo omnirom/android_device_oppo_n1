@@ -56,9 +56,11 @@ TARGET_USES_SF_BYPASS := true
 
 # Audio/media
 BOARD_USES_ALSA_AUDIO:= true
+BOARD_USES_LEGACY_ALSA_AUDIO := true
 TARGET_QCOM_AUDIO_VARIANT := caf
 BOARD_HAVE_LOW_LATENCY_AUDIO := true
 TARGET_QCOM_MEDIA_VARIANT := caf
+TARGET_ENABLE_QC_AV_ENHANCEMENTS := true
 BOARD_USES_FLUENCE_INCALL := true
 # maxwen: this is actually only needed because
 # of a bug in audio-caf when BOARD_USES_FLUENCE_INCALL := true
