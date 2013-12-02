@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b8b61a3_a0ff34ab",
+        "filename": "camerawrapper/CameraWrapper.cpp",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2013-12-02T20:07:47Z",
+      "side": 1,
+      "message": "damn whitespace derps",
+      "revId": "f333f928e07ad9532fd52a9564c9a62f6ecd234d",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
