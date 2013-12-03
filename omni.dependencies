@@ -3,6 +3,6 @@
     "remote": "omnirom",
     "repository": "android_kernel_oppo_n1",
     "target_path": "kernel/oppo/n1",
-    "revision": "android-4.4"
+    "revision": "android-4.3"
   }
 ]
