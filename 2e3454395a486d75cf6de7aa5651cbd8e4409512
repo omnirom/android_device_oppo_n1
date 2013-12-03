@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b8b61a3_406d902b",
+        "filename": "camerawrapper/CameraWrapper.cpp",
+        "patchSetId": 6
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2013-12-03T00:14:16Z",
+      "side": 1,
+      "message": "derp",
+      "revId": "2e3454395a486d75cf6de7aa5651cbd8e4409512",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
