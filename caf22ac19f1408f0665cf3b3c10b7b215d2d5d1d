@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6b8b61a3_c3fe0aff",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1000026
+      },
+      "writtenOn": "2013-12-03T10:28:25Z",
+      "side": 1,
+      "message": "I would use /sys/class/led/lcd-backlight/brightness this is actually the same path on 90% of all android devices",
+      "revId": "caf22ac19f1408f0665cf3b3c10b7b215d2d5d1d",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
