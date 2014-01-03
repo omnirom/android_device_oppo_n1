@@ -34,6 +34,14 @@
 	        android:summary="@string/vib_strength_summary_head" />
 	</PreferenceCategory>
 
+	<PreferenceCategory
+        android:title="@string/category_bln">
+	    <CheckBoxPreference
+	        android:key="bln"
+	        android:title="@string/bln_title_head"
+	        android:summary="@string/bln_summary_head" />
+	</PreferenceCategory>
+
     <PreferenceCategory
         android:title="@string/category_suspend_cap">
 	    <org.omnirom.omnigears.device.SuspendFreqCap

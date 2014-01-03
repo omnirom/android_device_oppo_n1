@@ -33,5 +33,6 @@ public class Startup extends BroadcastReceiver {
         SuspendFreqCap.restore(context);
         SuspendCoreCap.restore(context);
         BackTouchSwitch.restore(context);
+        BLNSwitch.restore(context);
     }
 }

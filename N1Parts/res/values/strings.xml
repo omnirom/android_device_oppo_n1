@@ -20,4 +20,7 @@
 	<string name="category_backtouch">Rear Touch Panel</string>
 	<string name="backtouch_title_head">Enable rear touch panel</string>
 	<string name="backtouch_summary_head">Enable usage of the the rear touch panel</string>
+	<string name="category_bln">Buttons</string>
+	<string name="bln_title_head">Notification light</string>
+	<string name="bln_summary_head">Enable usage of blinking button light for notifications</string>
 </resources>

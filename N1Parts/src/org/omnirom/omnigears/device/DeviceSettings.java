@@ -27,21 +27,21 @@ public class DeviceSettings extends PreferenceActivity  {
     public static final String KEY_CAMERA_SWITCH = "camera";
     public static final String KEY_MUSIC_SWITCH = "music";
     public static final String KEY_TORCH_SWITCH = "torch";
-
     public static final String KEY_VIBSTRENGTH = "vib_strength";
     public static final String KEY_SUSPEND_CAP_FREQ = "suspend_cap_freq";
     public static final String KEY_SUSPEND_CAP_CORE = "suspend_cap_core";
     public static final String KEY_BACKTOUCH = "backtouch";
-
+    public static final String KEY_BLN = "bln";
+    
     private TwoStatePreference mDoubleTapSwitch;
     private TwoStatePreference mCameraSwitch;
     private TwoStatePreference mMusicSwitch;
     private TwoStatePreference mTorchSwitch;
-
     private SuspendFreqCap mSuspendFreqCap;
     private SuspendCoreCap mSuspendCoreCap;
     private TwoStatePreference mBackTouchSwitch;
-
+    private TwoStatePreference mBlnSwitch;
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +81,11 @@ public class DeviceSettings extends PreferenceActivity  {
         mBackTouchSwitch.setEnabled(BackTouchSwitch.isSupported());
         mBackTouchSwitch.setChecked(BackTouchSwitch.isEnabled(this));
         mBackTouchSwitch.setOnPreferenceChangeListener(new BackTouchSwitch());
+
+        mBlnSwitch= (TwoStatePreference) findPreference(KEY_BLN);
+        mBlnSwitch.setEnabled(BLNSwitch.isSupported());
+        mBlnSwitch.setChecked(BLNSwitch.isEnabled(this));
+        mBlnSwitch.setOnPreferenceChangeListener(new BLNSwitch());
     }
 
     @Override

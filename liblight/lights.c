@@ -42,29 +42,20 @@ static struct light_state_t g_notification;
 static struct light_state_t g_battery;
 static struct light_state_t g_attention;
 
-char const*const RED_LED_FILE
-        = "/sys/class/leds/red/brightness";
-
-char const*const GREEN_LED_FILE
-        = "/sys/class/leds/green/brightness";
-
-char const*const BLUE_LED_FILE
-        = "/sys/class/leds/blue/brightness";
-
-char const*const LCD_FILE
+static const char* LCD_FILE
         = "/sys/class/leds/lcd-backlight/brightness";
 
-char const*const BUTTONS_FILE
+static const char* BUTTONS_FILE
         = "/sys/class/leds/button-backlight/brightness";
 
-char const*const RED_FREQ_FILE
-        = "/sys/class/leds/red/device/grpfreq";
+static const char* BUTTONS_BLINK_FILE
+        = "/sys/class/leds/button-backlight/blink";
 
-char const*const RED_PWM_FILE
-        = "/sys/class/leds/red/device/grppwm";
+static const char* BUTTONS_BLINK_ON_FILE
+        = "/sys/class/leds/button-backlight/blink_on_time";
 
-char const*const RED_BLINK_FILE
-        = "/sys/class/leds/red/device/blink";
+static const char* BUTTONS_BLINK_OFF_FILE
+        = "/sys/class/leds/button-backlight/blink_off_time";
 
 /**
  * device methods
@@ -147,22 +138,13 @@ static int
 set_speaker_light_locked(struct light_device_t* dev,
         struct light_state_t const* state)
 {
-
-    int len;
-    int alpha, red, green, blue;
-    int blink, freq, pwm;
+    int blink;
     int onMS, offMS;
-    unsigned int colorRGB;
 
     if(state == NULL) {
-        red = 0;
-        green = 0;
-        blue = 0;
         onMS = 0;
         onMS = 0;
         blink = 0;
-        freq = 0;
-        pwm = 0;
     } else {
         switch (state->flashMode) {
             case LIGHT_FLASH_TIMED:
@@ -176,49 +158,21 @@ set_speaker_light_locked(struct light_device_t* dev,
                 break;
         }
 
-        colorRGB = state->color;
-
 #if 0
-        ALOGD("set_speaker_light_locked mode %d, colorRGB=%08X, onMS=%d, offMS=%d\n",
-                state->flashMode, colorRGB, onMS, offMS);
+        ALOGD("set_speaker_light_locked mode %d, onMS=%d, offMS=%d\n",
+                state->flashMode, onMS, offMS);
 #endif
 
-        red = (colorRGB >> 16) & 0xFF;
-        green = (colorRGB >> 8) & 0xFF;
-        blue = colorRGB & 0xFF;
-
         if (onMS > 0 && offMS > 0) {
-            int totalMS = onMS + offMS;
-
-            // the LED appears to blink about once per second if freq is 20
-            // 1000ms / 20 = 50
-            freq = totalMS / 50;
-            // pwm specifies the ratio of ON versus OFF
-            // pwm = 0 -> always off
-            // pwm = 255 => always on
-            pwm = (onMS * 255) / totalMS;
-
-            // the low 4 bits are ignored, so round up if necessary
-            if (pwm > 0 && pwm < 16)
-                pwm = 16;
-
             blink = 1;
         } else {
             blink = 0;
-            freq = 0;
-            pwm = 0;
         }
     }
 
-    write_int(RED_LED_FILE, red);
-    write_int(GREEN_LED_FILE, green);
-    write_int(BLUE_LED_FILE, blue);
-
-    if (blink) {
-        write_int(RED_FREQ_FILE, freq);
-        write_int(RED_PWM_FILE, pwm);
-    }
-    write_int(RED_BLINK_FILE, blink);
+    write_int(BUTTONS_BLINK_ON_FILE, onMS);
+    write_int(BUTTONS_BLINK_OFF_FILE, offMS);    
+    write_int(BUTTONS_BLINK_FILE, blink);
 
     return 0;
 }
@@ -227,31 +181,19 @@ static void
 handle_speaker_battery_locked(struct light_device_t* dev,
     struct light_state_t const* state, int state_type)
 {
-    if(is_lit(&g_attention)) {
-        set_speaker_light_locked(dev, NULL);
-        set_speaker_light_locked(dev, &g_attention);
-    } else {
-        if(is_lit(&g_battery) && is_lit(&g_notification)) {
-            set_speaker_light_locked(dev, NULL);
-            set_speaker_light_locked(dev, &g_notification);
-        } else if(is_lit(&g_battery)) {
-            set_speaker_light_locked(dev, NULL);
-            set_speaker_light_locked(dev, &g_battery);
-        } else {
-            set_speaker_light_locked(dev, &g_notification);
-        }
+    if(is_lit(&g_notification)) {
+        set_speaker_light_locked(dev, &g_notification);
     }
-
 }
 
 static int
 set_light_battery(struct light_device_t* dev,
         struct light_state_t const* state)
 {
-    pthread_mutex_lock(&g_lock);
+    /*pthread_mutex_lock(&g_lock);
     g_battery = *state;
     handle_speaker_battery_locked(dev, state, 0);
-    pthread_mutex_unlock(&g_lock);
+    pthread_mutex_unlock(&g_lock);*/
     return 0;
 }
 
@@ -270,12 +212,8 @@ static int
 set_light_attention(struct light_device_t* dev,
         struct light_state_t const* state)
 {
-    pthread_mutex_lock(&g_lock);
+    /*pthread_mutex_lock(&g_lock);
     g_attention = *state;
-    /*
-     * attention logic tweaks from:
-     * https://github.com/CyanogenMod/android_device_samsung_d2-common/commit/6886bdbbc2417dd605f9818af2537c7b58491150
-    */
     if (state->flashMode == LIGHT_FLASH_HARDWARE) {
         if (g_attention.flashOnMS > 0 && g_attention.flashOffMS == 0) {
             g_attention.flashMode = LIGHT_FLASH_NONE;
@@ -284,7 +222,7 @@ set_light_attention(struct light_device_t* dev,
         g_attention.color = 0;
     }
     handle_speaker_battery_locked(dev, state, 2);
-    pthread_mutex_unlock(&g_lock);
+    pthread_mutex_unlock(&g_lock);*/
     return 0;
 }
 
