@@ -20,4 +20,8 @@
 	<string name="category_backtouch">Rear Touch Panel</string>
 	<string name="backtouch_title_head">Enable rear touch panel</string>
 	<string name="backtouch_summary_head">Enable usage of the the rear touch panel</string>
+    <string name="disabled">Disabled</string>
+    <string name="core">core</string>
+    <string name="cores">cores</string>
+    <string name="mhz" translateable="false">MHz</string>
 </resources>
