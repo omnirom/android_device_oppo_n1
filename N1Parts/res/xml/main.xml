@@ -19,6 +19,18 @@
 			android:title="@string/torch_title_head" />
 	</PreferenceCategory>
 	<PreferenceCategory
+        android:title="@string/category_oclick">
+	    <Preference
+	        android:key="oclick"
+	        android:title="@string/oclick_title_head"
+	        android:summary="@string/oclick_summary_head" >
+	        <intent
+	            android:action="android.intent.action.VIEW"
+                android:targetPackage="org.omnirom.omniclick"
+                android:targetClass="org.omnirom.omniclick.OClickControlActivity"/>
+	    </Preference>
+	</PreferenceCategory>
+	<PreferenceCategory
         android:title="@string/category_backtouch">
 	    <CheckBoxPreference
 	        android:key="backtouch"
