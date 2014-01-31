@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab62b9bd_c38fd9d4",
+        "filename": "device.mk",
+        "patchSetId": 4
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2014-01-31T00:04:09Z",
+      "side": 1,
+      "message": "I\u0027m not sure if we need this one, considering it didn\u0027t help the testers at all when tried on its own.",
+      "revId": "3289cb88358df3136026053b356795e4bd58fb1f",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
