@@ -376,6 +376,12 @@ public class OClickBLEService extends Service implements
     }
 
     @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
+        return START_STICKY;
+    }
+
+    @Override
     public boolean onUnbind(Intent intent) {
         // After using a given device, you should make sure that
         // BluetoothGatt.close() is called
