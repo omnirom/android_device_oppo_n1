@@ -39,11 +39,19 @@ mount -o rw,remount,barrier=1 /system
 # Run thermal script
 /system/bin/sh /system/etc/init.qcom.thermald_conf.sh
 
+# wifi setup
+
+# cleanup old files
+if [ -d /data/misc/wifi/prima ]; then
+    rm -r /data/misc/wifi/prima
+fi
+
+# this will copy /system/etc/wifi/WCNSS_qcom_cfg.ini and patch the MAC
+/system/bin/mac-update
+cp /system/etc/wifi/WCNSS_qcom_wlan_nv.bin /system/etc/firmware/wlan/prima/
+chmod 644 /system/etc/firmware/wlan/prima/WCNSS_qcom_*
+
 # This should be the last command
 # remount system as read-only.
 mount -o ro,remount,noatime,noauto_da_alloc /system
-
-# Copy Wi-Fi firmware to /data
-mkdir -p /data/misc/wifi/prima
-cp /persist/WCNSS_* /data/misc/wifi/prima
 
