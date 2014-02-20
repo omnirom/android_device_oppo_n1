@@ -45,5 +45,6 @@ mount -o ro,remount,noatime,noauto_da_alloc /system
 
 # Copy Wi-Fi firmware to /data
 mkdir -p /data/misc/wifi/prima
-cp /persist/WCNSS_* /data/misc/wifi/prima
+cp /system/etc/firmware/wlan/prima/WCNSS_qcom_cfg.ini /data/misc/wifi/prima
+cp /system/etc/firmware/wlan/prima/WCNSS_qcom_wlan_nv.bin /data/misc/wifi/prima
 
