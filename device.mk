@@ -126,6 +126,10 @@ PRODUCT_PACKAGES += \
 	libstagefrighthw \
 	libc2dcolorconvert
 
+# wifi
+PRODUCT_PACKAGES += \
+    mac-update
+
 # bluetooth
 PRODUCT_PACKAGES += \
     bdAddrLoader
