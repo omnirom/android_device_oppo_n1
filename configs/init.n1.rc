@@ -153,7 +153,6 @@ on post-fs-data
     # We chown/chmod /persist again so because mount is run as root + defaults
     chown system system /persist
 
-    mkdir /data/misc/wifi/prima 0775 wifi wifi
     start qcom-post-fs
 
     # Create the directories used by the Wireless subsystem
