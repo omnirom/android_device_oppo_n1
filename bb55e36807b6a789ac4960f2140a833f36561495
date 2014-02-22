@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8b77b57d_10411c10",
+        "filename": "OmniClick/res/values-fr/strings.xml",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1000682
+      },
+      "writtenOn": "2014-02-22T13:43:25Z",
+      "side": 1,
+      "message": "You forgot to translate this!",
+      "revId": "bb55e36807b6a789ac4960f2140a833f36561495",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
+    }
+  ]
+}
