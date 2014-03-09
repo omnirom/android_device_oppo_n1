@@ -14,10 +14,6 @@ PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 PRODUCT_CHARACTERISTICS := nosdcard
 
-PRODUCT_PACKAGES += \
-    charger_res_images \
-    charger
-
 # Live Wallpapers
 PRODUCT_PACKAGES += \
         LiveWallpapers \
@@ -151,6 +147,11 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     N1Parts \
     OmniClick
+
+# Charger
+PRODUCT_PACKAGES += \
+    charger_res_images_n1 \
+    charger_n1
 
 # Properties
 
