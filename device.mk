@@ -152,6 +152,11 @@ PRODUCT_PACKAGES += \
     N1Parts \
     OmniClick
 
+# Charger
+PRODUCT_PACKAGES += \
+    charger_res_images_n1 \
+    charger_n1
+
 # Properties
 
 # bluetooth
