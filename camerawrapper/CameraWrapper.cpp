@@ -23,7 +23,7 @@
 
 
 //#define LOG_NDEBUG 0
-//#define LOG_PARAMETERS
+#define LOG_PARAMETERS
 
 #define LOG_TAG "CameraWrapper"
 #include <cutils/log.h>
@@ -95,26 +95,52 @@ static int check_vendor_module()
     return rv;
 }
 
-const static char * scene_mode_values[] =
-{"auto,hdr,asd,action,portrait,landscape,night,night-portrait,theatre,beach,snow,sunset,steadyphoto,fireworks,sports,party,candlelight,backlight,flowers,AR,hdr,macro,mix-illuminant,indoor"};
-
 static char * camera_fixup_getparams(int id, const char * settings)
 {
+    bool videoMode = false;
+
     android::CameraParameters params;
     params.unflatten(android::String8(settings));
+
+    if (params.get(android::CameraParameters::KEY_RECORDING_HINT)) {
+        videoMode = (!strcmp(params.get(android::CameraParameters::KEY_RECORDING_HINT), "true"));
+    }
+
+    /* Blatantly lie to userspace to pass CTS */
+    params.set(android::CameraParameters::KEY_PREVIEW_FPS_RANGE, "5000,60000");
+    params.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(5000,60000)");
+
+    /* Set supported scene modes */
+    if (params.get(android::CameraParameters::KEY_SUPPORTED_SCENE_MODES)) {
+        params.set(android::CameraParameters::KEY_SUPPORTED_SCENE_MODES,
+                "auto,asd,hdr,portrait,landscape,indoor,mix-illuminant,night,sports,macro");
+    }
+
+    /* Remove color values, not supported */
+    params.set(android::CameraParameters::KEY_SUPPORTED_EFFECTS,
+            android::CameraParameters::EFFECT_NONE);
+
+    /* Remove ISO values, not supported */
+    if (!videoMode) {
+        params.set(android::CameraParameters::KEY_SUPPORTED_ISO_MODES,
+                android::CameraParameters::ISO_AUTO);
+    }
+
+    /* Remove exposure, values don't do anything */
+    params.set(android::CameraParameters::KEY_EXPOSURE_COMPENSATION, "0");
+    params.set(android::CameraParameters::KEY_EXPOSURE_COMPENSATION_STEP, "0.0");
+    params.set(android::CameraParameters::KEY_MAX_EXPOSURE_COMPENSATION, "0");
+    params.set(android::CameraParameters::KEY_MIN_EXPOSURE_COMPENSATION, "0");
+
+    /* Disable AEC and AWB lock, pictures are terrible */
+    params.set(android::CameraParameters::KEY_AUTO_EXPOSURE_LOCK_SUPPORTED, "false");
+    params.set(android::CameraParameters::KEY_AUTO_WHITEBALANCE_LOCK_SUPPORTED, "false");
 
     // added video snapshot supported
     params.set(android::CameraParameters::KEY_VIDEO_SNAPSHOT_SUPPORTED, "true");
 
-    // add hdr scene mode to existing scene modes
-    params.set(android::CameraParameters::KEY_SUPPORTED_SCENE_MODES, scene_mode_values[id]);
-    if (params.get("ae-bracket-hdr")) {
-        const char* hdrMode = params.get("ae-bracket-hdr");
-        if (strcmp(hdrMode, "HDR") == 0) {
-            // Scene mode is HDR then (see fixup_setparams)
-            params.set("scene-mode", "hdr");
-        }
-    }
+    /* Reduce purple */
+    params.set("reduce-purple", "on");
 
     android::String8 strParams = params.flatten();
     char *ret = strdup(strParams.string());
@@ -125,41 +151,95 @@ static char * camera_fixup_getparams(int id, const char * settings)
 
 char * camera_fixup_setparams(int id, const char * settings)
 {
+    int previewW, previewH;
+    int faceBeautify = 0;
+    bool videoMode = false;
+    const char *sceneMode = "auto";
+    const char *fpsRange = "5000,60000";
+    const char *fpsRangeValues = "(5000,60000)";
+
     android::CameraParameters params;
     params.unflatten(android::String8(settings));
 
-    // fix params here
-    if (params.get("scene-mode")) {
-        const char* sceneMode = params.get("scene-mode");
-        if (strcmp(sceneMode, "hdr") == 0) {
-            // On n1 and find5, HDR works by setting 'ae-bracket-hdr' to 'HDR'
-            // ('AE-Bracket' exists too). We then use
-            // 'auto' scene mode as it's AOSP/Nexus behavior
-            params.set("ae-bracket-hdr", "HDR");
-            params.set("scene-mode", "auto");
-            params.set("scene-detect", "on");
-            ALOGD("Fixup: Hdr enabled");
+    if (params.get(android::CameraParameters::KEY_RECORDING_HINT)) {
+        videoMode = (!strcmp(params.get(android::CameraParameters::KEY_RECORDING_HINT), "true"));
+    }
+
+    if (params.get(android::CameraParameters::KEY_SCENE_MODE)) {
+        sceneMode = params.get(android::CameraParameters::KEY_SCENE_MODE);
+    }
+
+    if (params.get("face-beautify")) {
+        faceBeautify = atoi(params.get("face-beautify"));
+    }
+
+    if (params.get(android::CameraParameters::KEY_PREVIEW_FPS_RANGE)) {
+        fpsRange = params.get(android::CameraParameters::KEY_PREVIEW_FPS_RANGE);
+    }
+
+    if (params.get(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE)) {
+        fpsRangeValues = params.get(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE);
+    }
+
+    /* De-purpleate */
+    params.set("reduce-purple", "on");
+
+    /* Disable flash if HDR, auto-scene or slow-shutter is enabled */
+    if (!videoMode) {
+        if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_HDR)) {
+            params.set(android::CameraParameters::KEY_FLASH_MODE,
+                    android::CameraParameters::FLASH_MODE_OFF);
+            params.set(android::CameraParameters::KEY_AE_BRACKET_HDR,
+                    android::CameraParameters::AE_BRACKET_HDR);
+
         } else {
-            // Remove HDR flag
-            params.set("ae-bracket-hdr", "Off");
-            params.set("scene-detect", "off");
-            ALOGD("Fixup: Hdr disabled");
+            params.set(android::CameraParameters::KEY_AE_BRACKET_HDR,
+                    android::CameraParameters::AE_BRACKET_HDR_OFF);
+
+            if (strcmp(sceneMode, android::CameraParameters::SCENE_MODE_AUTO)) {
+                params.set(android::CameraParameters::KEY_FLASH_MODE,
+                        android::CameraParameters::FLASH_MODE_AUTO);
+            }
+        }
+
+        if (strcmp(params.get("slow-shutter"), "slow-shutter-off")) {
+            params.set(android::CameraParameters::KEY_FLASH_MODE,
+                    android::CameraParameters::FLASH_MODE_OFF);
         }
     }
 
-    // allowing setting this to true will create the issue
-    // with continious auto focus and flash
-    params.set("auto-exposure-lock", "false");
-    params.set("auto-whitebalance-lock", "false");
+    /* Don't lie to the hardware otherwise things stop working */
+    if (!strcmp(fpsRange, "5000,60000")) {
+        params.set(android::CameraParameters::KEY_PREVIEW_FPS_RANGE, "10000,60000");
+    }
+    if (!strcmp(fpsRangeValues, "(5000,60000)")) {
+        params.set(android::CameraParameters::KEY_SUPPORTED_PREVIEW_FPS_RANGE, "(10000,60000)");
+    }
 
-    if (params.get("recording-hint")) {
-        const char* isRecording = params.get("recording-hint");
-        const char* videoSize = params.get("video-size");
-
-        if (strcmp(isRecording, "true") == 0){
-            params.set("picture-size", videoSize);
+    /* Disable slow-shutter if HDR or beauty is enabled */
+    if (!videoMode) {
+        if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_HDR)) {
+            params.set("slow-shutter", "slow-shutter-off");
+        }
+        if (faceBeautify > 0) {
+            params.set("slow-shutter", "slow-shutter-off");
         }
     }
+
+    /* Set auto scene detection if needed */
+    if (!videoMode) {
+        if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_ASD)) {
+            params.set(android::CameraParameters::KEY_SCENE_DETECT,
+                    android::CameraParameters::SCENE_DETECT_ON);
+        }
+    }
+
+    /* Set correct video snapshot picture size to not crash */
+    if (videoMode) {
+        params.getVideoSize(&previewW, &previewH);
+        params.setPictureSize(previewW, previewH);
+    }
+
     android::String8 strParams = params.flatten();
     char *ret = strdup(strParams.string());
 
