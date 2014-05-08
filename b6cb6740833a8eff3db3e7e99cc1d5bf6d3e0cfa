@@ -16,6 +16,24 @@
       "revId": "b6cb6740833a8eff3db3e7e99cc1d5bf6d3e0cfa",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8b77b57d_7ad12ad1",
+        "filename": "N1Parts/res/values-fr/strings.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1000098
+      },
+      "writtenOn": "2014-05-08T19:29:52Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "8b77b57d_7a3daa27",
+      "revId": "b6cb6740833a8eff3db3e7e99cc1d5bf6d3e0cfa",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
     }
   ]
 }
