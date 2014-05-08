@@ -42,4 +42,7 @@
     <string name="oclick_title_head">Paramètres</string>
     <string name="oclick_summary_head">Configurer le support O-Click</string>
     <string name="advanced_settings">Avancés</string>
+    <string name="category_camera">Appareil photo</string>
+    <string name="camera_flip_title_head">Activation de l\'appareil photo</string>
+    <string name="camera_flip_summary_head">Démarrer l\'application photo lorsque l\'appareil est tourné</string>
 </resources>
