@@ -18,6 +18,13 @@ PRODUCT_PACKAGES += \
     charger_res_images_n1 \
     charger_n1
 
+PRODUCT_PACKAGES += \
+    com.android.future.usb.accessory
+
+#Default USB mount
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    persist.sys.usb.config=mtp
+
 # Live Wallpapers
 PRODUCT_PACKAGES += \
         LiveWallpapers \
