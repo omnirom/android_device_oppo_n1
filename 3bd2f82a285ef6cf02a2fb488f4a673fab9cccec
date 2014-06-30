@@ -16,6 +16,24 @@
       "revId": "3bd2f82a285ef6cf02a2fb488f4a673fab9cccec",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b713d8b_d454fccc",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000004
+      },
+      "writtenOn": "2014-06-30T16:25:41Z",
+      "side": 1,
+      "message": "TW_BRIGHTNESS_PATH is probably no longer needed on most devices. I added some functionality to help locate the brightness file automatically so may try removing both this flag and TW_MAX_BRIGHTNESS and see if the Settings -\u003e Screen -\u003e Brightness option still exists and works properly.",
+      "parentUuid": "4b713d8b_34c6109f",
+      "revId": "3bd2f82a285ef6cf02a2fb488f4a673fab9cccec",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
     }
   ]
 }
