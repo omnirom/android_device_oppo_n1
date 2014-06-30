@@ -118,8 +118,8 @@ DEVICE_RESOLUTION := 1080x1920
 BOARD_HAS_NO_REAL_SDCARD := true
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-#TW_BRIGHTNESS_PATH := /sys/devices/platform/msm_fb.590337/leds/lcd-backlight/brightness
-#TW_MAX_BRIGHTNESS := 255
+TW_BRIGHTNESS_PATH := /sys/devices/platform/msm_fb.591873/leds/lcd-backlight/brightness
+TW_MAX_BRIGHTNESS := 255
 #TW_BOARD_CUSTOM_GRAPHICS := ../../../device/oppo/n1/recovery/graphics.c
 TW_NO_SCREEN_TIMEOUT := true
 
