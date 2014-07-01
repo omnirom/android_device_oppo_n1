@@ -34,6 +34,24 @@
       "revId": "3bd2f82a285ef6cf02a2fb488f4a673fab9cccec",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b713d8b_94a364af",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000008
+      },
+      "writtenOn": "2014-07-01T13:10:31Z",
+      "side": 1,
+      "message": "That results in a blank screen.",
+      "parentUuid": "4b713d8b_d454fccc",
+      "revId": "3bd2f82a285ef6cf02a2fb488f4a673fab9cccec",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
     }
   ]
 }
