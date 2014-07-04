@@ -70,6 +70,24 @@
       "revId": "3bd2f82a285ef6cf02a2fb488f4a673fab9cccec",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b713d8b_fa85615c",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000026
+      },
+      "writtenOn": "2014-07-04T23:32:54Z",
+      "side": 1,
+      "message": "But that default path is already used in data.cpp#964\nSo I am  little bit confused why this change should fix something :)\n\nAAAAAh :) the whole section is inside #ifdef TW_BRIGHTNESS_PATH\nSo if TW_BRIGHTNESS_PATH is empty nothing will be done :)",
+      "parentUuid": "4b713d8b_ba8be970",
+      "revId": "3bd2f82a285ef6cf02a2fb488f4a673fab9cccec",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
     }
   ]
 }
