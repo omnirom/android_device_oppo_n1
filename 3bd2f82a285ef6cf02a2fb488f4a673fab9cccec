@@ -52,6 +52,24 @@
       "revId": "3bd2f82a285ef6cf02a2fb488f4a673fab9cccec",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b713d8b_ba8be970",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000026
+      },
+      "writtenOn": "2014-07-04T23:21:24Z",
+      "side": 1,
+      "message": "/sys/class/leds/lcd-backlight is equal to /sys/devices/platform/msm_fb.591873/leds/lcd-backlight\nso actually there should be no diff using either",
+      "parentUuid": "4b713d8b_94a364af",
+      "revId": "3bd2f82a285ef6cf02a2fb488f4a673fab9cccec",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
     }
   ]
 }
