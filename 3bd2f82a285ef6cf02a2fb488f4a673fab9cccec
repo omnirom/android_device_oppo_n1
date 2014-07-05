@@ -106,6 +106,24 @@
       "revId": "3bd2f82a285ef6cf02a2fb488f4a673fab9cccec",
       "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4b713d8b_1ac93dae",
+        "filename": "BoardConfig.mk",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1000026
+      },
+      "writtenOn": "2014-07-05T11:27:04Z",
+      "side": 1,
+      "message": "IMHO It makes no sense to put code that searches in default locations inside the #ifdef since it is exactly for the case where you have not defined it in the device config. Either way the change will fix the problem for now but I still think is better to use the /sys/class/leds path since this is the android default and the n1 supports its",
+      "parentUuid": "4b713d8b_5aead505",
+      "revId": "3bd2f82a285ef6cf02a2fb488f4a673fab9cccec",
+      "serverId": "56841c99-7c94-43d4-bf0b-cb4707e66d55",
+      "unresolved": false
     }
   ]
 }
