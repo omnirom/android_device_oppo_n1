@@ -29,7 +29,7 @@
     <string name="vib_strength_summary_head">Define the strength of the vibrator</string>
     <string name="vib_test">Test</string>
     <string name="category_suspend_cap">Screen off limits</string>
-    <string name="suspend_cap_freq">Core frequeny</string>
+    <string name="suspend_cap_freq">Core frequency</string>
     <string name="suspend_cap_core">Core number</string>
     <string name="category_backtouch">Rear Touch Panel</string>
     <string name="backtouch_title_head">Enable rear touch panel</string>
