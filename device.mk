@@ -117,8 +117,9 @@ PRODUCT_PACKAGES += \
 	audio.a2dp.default \
 	audio.usb.default \
 	audio.r_submix.default \
-        camera-wrapper.msm8960 \
 	libaudio-resampler
+
+#camera-wrapper.msm8960 \
 
 PRODUCT_PACKAGES += \
 	libmm-omxcore \
@@ -156,8 +157,8 @@ PRODUCT_COPY_FILES += \
 	device/oppo/n1/configs/gps.conf:system/etc/gps.conf
 	
 PRODUCT_PACKAGES += \
-    N1Parts \
-    OmniClick
+    N1Parts
+    #OmniClick
 
 # Properties
 
@@ -229,7 +230,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	af.resampler.quality=4 \
 	lpa.decode=false \
 	tunnel.decode=false \
-	tunnel.audiovideo.decode=true
+	tunnel.audiovideo.decode=false
 
 # QCOM
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -244,6 +245,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.gps.qmienabled=true
 
-$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
-$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
+#$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
+#$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
