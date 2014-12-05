@@ -36,14 +36,14 @@ public class CameraFlipSwitch implements OnPreferenceChangeListener {
         return true;
     }
 
-    public static boolean isEnabled(Context context) {
+    /*public static boolean isEnabled(Context context) {
         return Settings.System.getInt(context.getContentResolver(), Settings.System.OPPO_CAMERA_FLIP_ENABLED, 1) != 0;
-    }
+    }*/
 
     @Override
     public boolean onPreferenceChange(Preference preference, Object newValue) {
-        Boolean enabled = (Boolean) newValue;
-        Settings.System.putInt(mContext.getContentResolver(), Settings.System.OPPO_CAMERA_FLIP_ENABLED, enabled ? 1 : 0);
+        /*Boolean enabled = (Boolean) newValue;
+        Settings.System.putInt(mContext.getContentResolver(), Settings.System.OPPO_CAMERA_FLIP_ENABLED, enabled ? 1 : 0);*/
         return true;
     }
 }
