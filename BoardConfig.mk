@@ -71,6 +71,11 @@ BOARD_HAVE_NEW_QCOM_CSDCLIENT := true
 BOARD_USES_SEPERATED_HEADSET_MIC := true
 BOARD_HAVE_OPPO_CSDCLIENT := true
 
+# TODO - if we merge all CAF changes into av we should be able to use the policy there
+USE_LEGACY_AUDIO_POLICY := 1
+USE_CUSTOM_AUDIO_POLICY := 0
+BOARD_USES_EXTN_AUDIO_POLICY_MANAGER := true
+
 # Camera
 COMMON_GLOBAL_CFLAGS += -DNEEDS_VECTORIMPL_SYMBOLS
 USE_DEVICE_SPECIFIC_CAMERA := true
@@ -104,6 +109,9 @@ SENSORS_NEED_SETRATE_ON_ENABLE := true
 
 #TARGET_USE_CUSTOM_LUN_FILE_PATH := /sys/class/android_usb/android0/f_mass_storage/lun%d/file
 
+BOARD_USES_LEGACY_MMAP := true
+TARGET_USES_LOGD := false
+
 # Recovery:Start
 
 TARGET_RECOVERY_FSTAB := device/oppo/n1/configs/fstab.n1
@@ -114,12 +122,13 @@ TARGET_USERIMAGES_USE_EXT4 := true
 
 # TWRP specific build flags
 DEVICE_RESOLUTION := 1080x1920
-#RECOVERY_SDCARD_ON_DATA := true
-BOARD_HAS_NO_REAL_SDCARD := true
 RECOVERY_GRAPHICS_USE_LINELENGTH := true
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-#TW_BRIGHTNESS_PATH := /sys/devices/platform/msm_fb.590337/leds/lcd-backlight/brightness
-#TW_MAX_BRIGHTNESS := 255
-#TW_BOARD_CUSTOM_GRAPHICS := ../../../device/oppo/n1/recovery/graphics.c
+TW_NO_USB_STORAGE := true
+TW_INCLUDE_JB_CRYPTO := false
+TW_NO_SCREEN_BLANK := true
+TW_EXCLUDE_ENCRYPTED_BACKUPS := true
+TW_INCLUDE_L_CRYPTO := true
+BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
 TW_NO_SCREEN_TIMEOUT := true
 

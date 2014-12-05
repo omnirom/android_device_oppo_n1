@@ -64,8 +64,12 @@ camera_module_t HAL_MODULE_INFO_SYM = {
          dso: NULL, /* remove compilation warnings */
          reserved: {0}, /* remove compilation warnings */
     },
-    get_number_of_cameras: camera_get_number_of_cameras,
-    get_camera_info: camera_get_camera_info,
+    .get_number_of_cameras = camera_get_number_of_cameras,
+    .get_camera_info = camera_get_camera_info,
+    .set_callbacks = NULL, /* remove compilation warnings */
+    .get_vendor_tag_ops = NULL, /* remove compilation warnings */
+    .open_legacy = NULL, /* remove compilation warnings */
+    .reserved = {0}, /* remove compilation warnings */
 };
 
 typedef struct wrapper_camera_device {
@@ -121,10 +125,10 @@ static char * camera_fixup_getparams(int id, const char * settings)
             android::CameraParameters::EFFECT_NONE);
 
     /* Remove ISO values, not supported */
-    if (!videoMode) {
+    /*if (!videoMode) {
         params.set(android::CameraParameters::KEY_SUPPORTED_ISO_MODES,
                 android::CameraParameters::ISO_AUTO);
-    }
+    }*/
 
     /* Remove exposure, values don't do anything */
     params.set(android::CameraParameters::KEY_EXPOSURE_COMPENSATION, "0");
@@ -189,12 +193,12 @@ char * camera_fixup_setparams(int id, const char * settings)
         if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_HDR)) {
             params.set(android::CameraParameters::KEY_FLASH_MODE,
                     android::CameraParameters::FLASH_MODE_OFF);
-            params.set(android::CameraParameters::KEY_AE_BRACKET_HDR,
-                    android::CameraParameters::AE_BRACKET_HDR);
+            /*params.set(android::CameraParameters::KEY_AE_BRACKET_HDR,
+                    android::CameraParameters::AE_BRACKET_HDR);*/
 
         } else {
-            params.set(android::CameraParameters::KEY_AE_BRACKET_HDR,
-                    android::CameraParameters::AE_BRACKET_HDR_OFF);
+            /*params.set(android::CameraParameters::KEY_AE_BRACKET_HDR,
+                    android::CameraParameters::AE_BRACKET_HDR_OFF);*/
 
             if (strcmp(sceneMode, android::CameraParameters::SCENE_MODE_AUTO)) {
                 params.set(android::CameraParameters::KEY_FLASH_MODE,
@@ -227,12 +231,12 @@ char * camera_fixup_setparams(int id, const char * settings)
     }
 
     /* Set auto scene detection if needed */
-    if (!videoMode) {
+    /*if (!videoMode) {
         if (!strcmp(sceneMode, android::CameraParameters::SCENE_MODE_ASD)) {
             params.set(android::CameraParameters::KEY_SCENE_DETECT,
                     android::CameraParameters::SCENE_DETECT_ON);
         }
-    }
+    }*/
 
     /* Set correct video snapshot picture size to not crash */
     if (videoMode) {

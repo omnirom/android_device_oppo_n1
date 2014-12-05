@@ -60,8 +60,6 @@ PRODUCT_COPY_FILES += \
 # Audio config files
 PRODUCT_COPY_FILES += \
 	device/oppo/n1/configs/audio_policy.conf:system/etc/audio_policy.conf \
-	device/oppo/n1/media_codecs.xml:system/etc/media_codecs.xml \
-	device/oppo/n1/media_profiles.xml:system/etc/media_profiles.xml \
 	device/oppo/n1/snd_soc_msm/snd_soc_msm_I2SFusion:system/etc/snd_soc_msm/snd_soc_msm_I2SFusion \
 	device/oppo/n1/snd_soc_msm/snd_soc_msm_Sitar:system/etc/snd_soc_msm/snd_soc_msm_Sitar \
 	device/oppo/n1/snd_soc_msm/snd_soc_msm_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_auxpcm \
@@ -71,6 +69,14 @@ PRODUCT_COPY_FILES += \
 	device/oppo/n1/snd_soc_msm/snd_soc_msm_Sitar_auxpcm:system/etc/snd_soc_msm/snd_soc_msm_Sitar_auxpcm \
 	device/oppo/n1/snd_soc_msm/snd_soc_msm_2x_Fusion3:system/etc/snd_soc_msm/snd_soc_msm_2x_Fusion3 \
 	device/oppo/n1/snd_soc_msm/snd_soc_msm_I2S:system/etc/snd_soc_msm/snd_soc_msm_I2S
+
+# Media config files
+PRODUCT_COPY_FILES += \
+    device/oppo/n1/media_codecs.xml:system/etc/media_codecs.xml \
+    device/oppo/n1/media_profiles.xml:system/etc/media_profiles.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_audio.xml:system/etc/media_codecs_google_audio.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_telephony.xml:system/etc/media_codecs_google_telephony.xml \
+    frameworks/av/media/libstagefright/data/media_codecs_google_video.xml:system/etc/media_codecs_google_video.xml
 
 # qcom init stuff
 PRODUCT_COPY_FILES += \
@@ -117,8 +123,8 @@ PRODUCT_PACKAGES += \
 	audio.a2dp.default \
 	audio.usb.default \
 	audio.r_submix.default \
-        camera-wrapper.msm8960 \
-	libaudio-resampler
+	libaudio-resampler \
+    camera-wrapper.msm8960
 
 PRODUCT_PACKAGES += \
 	libmm-omxcore \
@@ -126,16 +132,22 @@ PRODUCT_PACKAGES += \
 	libOmxVdec \
 	libOmxVenc \
 	libOmxCore \
-	libOmxAacEnc \
-	libOmxAmrEnc \
-	libOmxEvrcEnc \
-	libOmxQcelp13Enc \
 	libstagefrighthw \
 	libc2dcolorconvert
 
+#	libOmxAacEnc \
+#	libOmxAmrEnc \
+#	libOmxEvrcEnc \
+#	libOmxQcelp13Enc \
+
 # wifi
 PRODUCT_PACKAGES += \
-    mac-update
+    mac-update \
+    wcnss_service \
+    libwpa_client \
+    hostapd \
+    wpa_supplicant \
+    wpa_supplicant.conf
 
 PRODUCT_COPY_FILES += \
 	device/oppo/n1/configs/init.n1.bt.sh:system/etc/init.n1.bt.sh
@@ -156,8 +168,8 @@ PRODUCT_COPY_FILES += \
 	device/oppo/n1/configs/gps.conf:system/etc/gps.conf
 	
 PRODUCT_PACKAGES += \
-    N1Parts \
-    OmniClick
+    N1Parts
+    #OmniClick
 
 # Properties
 
@@ -219,7 +231,8 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.audio.fluencetype=fluence \
     ro.qc.sdk.sensors.gestures=false \
     ro.qc.sdk.camera.facialproc=true \
-    ro.qc.sdk.gestures.camera=false
+    ro.qc.sdk.gestures.camera=false \
+    camera2.portability.force_api=1
 
 # Audio Configuration
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -229,7 +242,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
 	af.resampler.quality=4 \
 	lpa.decode=false \
 	tunnel.decode=false \
-	tunnel.audiovideo.decode=true
+	tunnel.audiovideo.decode=false
 
 # QCOM
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -244,6 +257,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.gps.qmienabled=true
 
-$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
-$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
+#$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-dalvik-heap.mk)
+#$(call inherit-product, frameworks/native/build/phone-xxhdpi-2048-hwui-memory.mk)
 
