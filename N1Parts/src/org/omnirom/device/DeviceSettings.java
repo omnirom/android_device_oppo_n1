@@ -24,23 +24,23 @@ import android.preference.TwoStatePreference;
 public class DeviceSettings extends PreferenceActivity  {
 
     public static final String KEY_DOUBLETAB_SWITCH = "double_tap";
-    public static final String KEY_CAMERA_SWITCH = "camera";
-    public static final String KEY_MUSIC_SWITCH = "music";
-    public static final String KEY_TORCH_SWITCH = "torch";
+    //public static final String KEY_CAMERA_SWITCH = "camera";
+    //public static final String KEY_MUSIC_SWITCH = "music";
+    //public static final String KEY_TORCH_SWITCH = "torch";
 
     public static final String KEY_VIBSTRENGTH = "vib_strength";
-    public static final String KEY_SUSPEND_CAP_FREQ = "suspend_cap_freq";
-    public static final String KEY_SUSPEND_CAP_CORE = "suspend_cap_core";
-    public static final String KEY_BACKTOUCH = "backtouch";
-    public static final String KEY_CAMERA_FLIP = "camera_flip";
+    //public static final String KEY_SUSPEND_CAP_FREQ = "suspend_cap_freq";
+    //public static final String KEY_SUSPEND_CAP_CORE = "suspend_cap_core";
+    //public static final String KEY_BACKTOUCH = "backtouch";
+    //public static final String KEY_CAMERA_FLIP = "camera_flip";
 
     private TwoStatePreference mDoubleTapSwitch;
-    private TwoStatePreference mCameraSwitch;
+    /*private TwoStatePreference mCameraSwitch;
     private TwoStatePreference mMusicSwitch;
     private TwoStatePreference mTorchSwitch;
     private TwoStatePreference mCameraFlipSwitch;
     private SuspendFreqCap mSuspendFreqCap;
-    private SuspendCoreCap mSuspendCoreCap;
+    private SuspendCoreCap mSuspendCoreCap;*/
     //private TwoStatePreference mBackTouchSwitch;
 
     @Override
@@ -53,7 +53,7 @@ public class DeviceSettings extends PreferenceActivity  {
         mDoubleTapSwitch.setChecked(DoubleTapSwitch.isEnabled(this));
         mDoubleTapSwitch.setOnPreferenceChangeListener(new DoubleTapSwitch());
 
-        mCameraSwitch = (TwoStatePreference) findPreference(KEY_CAMERA_SWITCH);
+        /*mCameraSwitch = (TwoStatePreference) findPreference(KEY_CAMERA_SWITCH);
         mCameraSwitch.setEnabled(CameraGestureSwitch.isSupported());
         mCameraSwitch.setChecked(CameraGestureSwitch.isEnabled(this));
         mCameraSwitch.setOnPreferenceChangeListener(new CameraGestureSwitch());
@@ -76,17 +76,17 @@ public class DeviceSettings extends PreferenceActivity  {
         mSuspendCoreCap = (SuspendCoreCap) findPreference(KEY_SUSPEND_CAP_CORE);
         mSuspendCoreCap.setEnabled(SuspendCoreCap.isSupported());
         mSuspendCoreCap.setValue(SuspendCoreCap.getValue(this));
-        mSuspendCoreCap.setOnPreferenceChangeListener(mSuspendCoreCap);
+        mSuspendCoreCap.setOnPreferenceChangeListener(mSuspendCoreCap);*/
 
         /*mBackTouchSwitch= (TwoStatePreference) findPreference(KEY_BACKTOUCH);
         mBackTouchSwitch.setEnabled(BackTouchSwitch.isSupported());
         mBackTouchSwitch.setChecked(BackTouchSwitch.isEnabled(this));
         mBackTouchSwitch.setOnPreferenceChangeListener(new BackTouchSwitch());*/
 
-        mCameraFlipSwitch = (TwoStatePreference) findPreference(KEY_CAMERA_FLIP);
+        /*mCameraFlipSwitch = (TwoStatePreference) findPreference(KEY_CAMERA_FLIP);
         mCameraFlipSwitch.setEnabled(CameraFlipSwitch.isSupported());
         mCameraFlipSwitch.setChecked(CameraFlipSwitch.isEnabled(this));
-        mCameraFlipSwitch.setOnPreferenceChangeListener(new CameraFlipSwitch(this));
+        mCameraFlipSwitch.setOnPreferenceChangeListener(new CameraFlipSwitch(this));*/
     }
 
     @Override
